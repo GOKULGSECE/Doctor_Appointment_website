@@ -1,0 +1,13 @@
+.appointment
+{
+    background-color: aqua;
+    padding:20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+.appointment header{
+    padding: auto;
+    background-color: aqua;
+}
+.appointment span{
+    color:orange;
+}

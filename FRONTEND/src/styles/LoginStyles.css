@@ -1,0 +1,62 @@
+body {
+    background-color: white; 
+    /* background-image: url('https://media.istockphoto.com/id/1628580367/photo/christmas-background.webp?b=1&s=170667a&w=0&k=20&c=HUXtdh3oB_KQoMOh9PSBkEoa6z_M8yvsosGArlTNrzY=');  */
+    background-size: cover;
+    background-position: center;
+    font-family: Arial, sans-serif;
+  }
+  .form-container {
+    background-color: rgba(104, 202, 221, 0.9); 
+    padding: 20px;
+    box-shadow: 50px 50px 50px gray; 
+    margin: 50px auto; 
+    max-width: 400px; 
+    max-height: 550px;
+  }
+  
+  
+  .register-form {
+    width: 100%;
+    background-color: orange;
+  }
+  
+ 
+  .register-form label {
+    font-weight: bold;
+  }
+  
+ 
+  .register-form input {
+    width: 100%;
+    padding: 10px;
+  }
+  
+  
+  .register-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff; 
+    color: #fff; 
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .register-form button:hover {
+    background-color: #0056b3; 
+  }
+  
+  .link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .link a {
+    color: #007bff; 
+    text-decoration: none;
+  }
+  
+  .link a:hover {
+    text-decoration: underline;
+  }
+  
