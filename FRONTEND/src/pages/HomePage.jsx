@@ -1,6 +1,6 @@
 import {React,useState,useEffect} from "react";
 import  {useNavigate} from "react-router-dom";
-import 'D:/Doctor_Appointment/FRONTEND/src/styles/app1.css';
+import '../styles/app1.css';
 import { message } from "antd";
 import Appointment from "./Appointment";
 // import Cards from "./Cards";
@@ -12,45 +12,33 @@ const HomePage = () => {
   const [lastName, setLastName] = useState('');
   const [address, setAddress] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [doctorname,Setdoctorname] = useState('');
   const [blogs,setblogs]=useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5006/appoint/book', {
+      await axios.post('http://localhost:5006/appoint/book', {
         firstName,
         lastName,
         address,
         phoneNumber,
+        doctorname
       });
-      console.log(response.data);
       message.success("Appointment Booked")
     } catch (error) {
       console.log(error)
     }
   };
-  useEffect(()=>
-  {
-    const fetchdata = async()=>{
-      try{
-        const response = await axios.get('http://localhost:5006/api/doctors');
-        setblogs(response.data);
-        console.log(blogs);
-      }catch (error)
-      {
-        console.log(error);
-      }
-    }
-    fetchdata();
-  },[]);
   
   const handlenavi = () => {
-    window.open("https://healthbooker.onrender.com/doctors", "_blank");
+    // window.open("https://healthbooker.onrender.com/doctors", "_blank");
+    navigate("/doctorspage")
   };
   const handlenav = () =>
   {
     navigate("/appointment");
-  };
+  };   
   return (
     <div>
   <meta charSet="UTF-8" />
@@ -83,24 +71,35 @@ const HomePage = () => {
         placeholder="First Name"
         value={firstName}
         onChange={(e) => setFirstName(e.target.value)}
+        required
       />
       <input
         type="text"
         placeholder="Last Name"
         value={lastName}
         onChange={(e) => setLastName(e.target.value)}
+        required
       />
       <input
         type="text"
         placeholder="Address"
         value={address}
         onChange={(e) => setAddress(e.target.value)}
+        required
       />
       <input
         type="text"
         placeholder="Phone No."
         value={phoneNumber}
         onChange={(e) => setPhoneNumber(e.target.value)}
+        required
+      />
+      <input
+       type="text"
+       placeholder="Doctor Name"
+       value={doctorname}
+       onChange={(e)=>Setdoctorname(e.target.value)}
+       required
       />
       <button className="btn form__btn">Book Appointment</button>
     </form>
@@ -301,7 +300,6 @@ const HomePage = () => {
       </div>
     </div>
   </footer>
-  <Appointment blogs={blogs}/>
 </div>
   );
   }

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const appointmentSchema = new mongoose.Schema({
+const admin = new mongoose.Schema({
   firstName: { type: String },
   lastName: { type: String},
   address: { type: String },
@@ -11,9 +11,9 @@ const appointmentSchema = new mongoose.Schema({
     enum:['pending','approved','rejected'],
     default:'pending'
   },
-  createdAt: { type: Date, default: Date.now },
-  scheduledTime:{type:String,default:null}
+  scheduledTime:{type:String},
+  enquirynumber:{type:Number}
 });
 
-const appointment = mongoose.model("Appointment", appointmentSchema);
-module.exports = appointment
+const admins = mongoose.model("AppointmentApproval", admin);
+module.exports = admins

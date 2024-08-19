@@ -1,22 +1,19 @@
 import React, { useState } from "react";
 import "../styles/RegiserStyles.css";
-import { Form, Input, message } from "antd";
+import { Form, Input, Radio, message } from "antd";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const navigate = useNavigate();
- const [email,setEmail] = useState();  
- const [password,setPassword] = useState();  
- const [name,setname] = useState();                 
+  const [role, setRole] = useState("user");
 
-  const onfinishHandler = async (values) => {
+  const onFinishHandler = async (values) => {
     try {
-      const res = await axios.post("http://localhost:5006/user/register", {
-        name : name,
-        email : email,
-        password:password
-      });
+      values.role = role;
+
+      const res = await axios.post("http://localhost:5006/user/register", values);
+
       if (res.data.success) {
         message.success("Register Successfully!");
         navigate("/");
@@ -24,37 +21,47 @@ const Register = () => {
         message.error(res.data.message);
       }
     } catch (error) {
-      message.error("Something Went Wrong");
+      if (error.response && error.response.status === 409) {
+        message.error("Email or username already exists");
+      } else {
+        message.error("Something Went Wrong");
+      }
     }
   };
 
   return (
     <>
-      <div className="form-container ">
+      <div className="background-image"></div>
+      <div className="form-container">
         <Form
           layout="vertical"
-          onFinish={onfinishHandler}
+          onFinish={onFinishHandler}
           className="register-form"
         >
-          <h3 className="text-center">Register form</h3>
-          <Form.Item label="Name" name="name">
-            <Input type="text" required onChange={(value)=>{
-              setname(value.target.value);
-            }} />
+          <h3 className="text-center">Register Form</h3>
+
+          <Form.Item label="Name" name="name" rules={[{ required: true, message: 'Please input your name!' }]}>
+            <Input type="text" />
           </Form.Item>
-          <Form.Item label="Email" name="email">
-            <Input type="email" required  onChange={(value)=>{
-              setEmail(value.target.value);
-            }}/>
+
+          <Form.Item label="Email" name="email" rules={[{ required: true, message: 'Please input your email!' }]}>
+            <Input type="email" />
           </Form.Item>
-          <Form.Item label="Password" name="password">
-            <Input type="password" required onChange={(value)=>{
-              setPassword(value.target.value);
-            }}/>
+
+          <Form.Item label="Password" name="password" rules={[{ required: true, message: 'Please input your password!' }]}>
+            <Input type="password" />
+          </Form.Item>
+
+          <Form.Item label="Role" name="role" rules={[{ required: true, message: 'Please select your role!' }]}>
+            <Radio.Group onChange={(e) => setRole(e.target.value)} value={role}>
+              <Radio value="user">User</Radio>
+              <Radio value="admin">Admin</Radio>
+            </Radio.Group>
           </Form.Item>
           <Link to="/" className="m-2">
-            Already an user? 
+            Already a user?
           </Link>
+
           <button className="btn btn-primary" type="submit">
             Register
           </button>

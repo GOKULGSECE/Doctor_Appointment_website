@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const createAppointment = require("../controllers/appointmentsController")
+const {createAppointment, getAppointments,} = require("../controllers/appointmentsController")
 
-router.post("/book",createAppointment)
+router.post("/book",createAppointment);
+router.get("/showbookings",getAppointments);
 
-module.exports = router
+module.exports = router 

@@ -8,6 +8,7 @@ connectDB();
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use("/admin",require("./routes/adminRoutes.js"));
 app.use("/user", require("./routes/userRoutes.js"));
 app.use("/appoint",require("./routes/bookingRoutes.js"))
 const port = process.env.PORT || 5002;
